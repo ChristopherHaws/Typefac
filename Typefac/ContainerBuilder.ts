@@ -10,10 +10,10 @@ module Typefac {
 
 			var container = new Typefac.Core.Container();
 
-			for (var registration in this.registrations) {
-				if (this.registrations.hasOwnProperty(registration)) {
-					container.ComponentRegistry.Register(registration);
-				}
+            for (var i = 0; i < this.registrations.length; i++) {
+                var registration = this.registrations[i];
+                
+				container.ComponentRegistry.Register(registration.Component);
 			}
 
 			this.wasBuilt = true;
