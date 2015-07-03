@@ -5,7 +5,7 @@ module Typefac {
 
 		public Build(): Typefac.Core.IContainer {
 			if (this.wasBuilt) {
-				throw "build() or update() can only be called once on a ContainerBuilder.";
+				throw new Error("build() or update() can only be called once on a ContainerBuilder.");
 			}
 
 			var container = new Typefac.Core.Container();

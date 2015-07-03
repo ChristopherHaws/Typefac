@@ -26,12 +26,12 @@
             return <T>object;
         }
 
-        private GetParameters(type: Typefac.Core.Registration.IComponentRegistration): string[] {
-            if (!type.Names || type.Names.length <= 0) {
+        private GetParameters(component: Typefac.Core.Registration.IComponentRegistration): string[] {
+            if (!component.Names || component.Names.length <= 0) {
                 return new Array<string>();
             }
 
-            var result = type.Type.toString().match(this.functionArguments);
+            var result = component.Type.toString().match(this.functionArguments);
             if (result === null) {
                 return new Array<string>();
             }
