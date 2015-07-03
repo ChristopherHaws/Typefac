@@ -1,7 +1,7 @@
 module Typefac.Builder {
     export class RegistrationBuilder implements IRegistrationBuilder {
-        constructor(type: Object) {
-            this.Component = new Typefac.Core.Registration.ComponentRegistration();
+        constructor(type: Function) {
+            this.Component = new Typefac.Core.Registration.ComponentRegistration(type);
         }
 
         public Component: Typefac.Core.Registration.ComponentRegistration;

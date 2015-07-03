@@ -21,7 +21,7 @@ module Typefac {
 			return container;
 		}
 
-		public RegisterType(type: Object): Typefac.Builder.IRegistrationBuilder {
+		public RegisterType(type: Function): Typefac.Builder.IRegistrationBuilder {
 			return new Typefac.Builder.RegistrationBuilder(type);
 		}
 	}
