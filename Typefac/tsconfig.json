@@ -6,7 +6,7 @@
         "removeComments": false,
         "sourceMap": true,
 		"target": "es5",
-		"out": "Typefac.js",
-		"declaration": false
+		"out": "../artifacts/bin/Typefac/Typefac.js",
+		"declaration": true
     }
 }
