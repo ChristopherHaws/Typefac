@@ -5,6 +5,6 @@ module Test {
 
     var builder = new Typefac.ContainerBuilder();
     builder
-        .RegisterType(Testing)
-        .As("ITesting");
+        .registerType(Testing)
+        .as("ITesting");
 }

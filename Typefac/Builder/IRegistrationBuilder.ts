@@ -1,9 +1,9 @@
 ﻿module Typefac.Builder {
     export interface IRegistrationBuilder {
-        Component: Typefac.Core.Registration.ComponentRegistration;
+        component: Typefac.Core.Registration.ComponentRegistration;
 
-        As(name: string): IRegistrationBuilder;
-        InstancePerDependency(): IRegistrationBuilder;
-        SingleInstance(): IRegistrationBuilder;
+        as(name: string): IRegistrationBuilder;
+        instancePerDependency(): IRegistrationBuilder;
+        singleInstance(): IRegistrationBuilder;
     }
 }

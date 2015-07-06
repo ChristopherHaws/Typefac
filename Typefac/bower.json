@@ -1,0 +1,16 @@
+{
+	"name": "Typefac",
+	"version": "0.0.1-*",
+	"description": "TypeScript Inversion of Control library based on Autofac.",
+	"authors": [ "Christopher Haws" ],
+	"homepage": "https://github.com/ChristopherHaws/Typefac",
+	"keywords": [ "Typefac", "TypeScript", "IoC", "DI" ],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ChristopherHaws/Typefac.git"
+	},
+	"private": true,
+
+	"dependencies": {
+	}
+}

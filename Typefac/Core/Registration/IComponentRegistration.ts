@@ -1,7 +1,7 @@
 ﻿module Typefac.Core.Registration {
     export interface IComponentRegistration {
-        Names: string[];
-        Sharing: Typefac.Core.InstanceSharing;
-        Type: Function;
+        names: string[];
+        sharing: Typefac.Core.InstanceSharing;
+        type: Function;
     }
 }

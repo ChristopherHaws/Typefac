@@ -1,15 +1,15 @@
 ﻿module Typefac.Core.Registration {
     export interface IComponentRegistry {
-        Register: (component: Typefac.Core.Registration.IComponentRegistration) => void;
+        register: (component: Typefac.Core.Registration.IComponentRegistration) => void;
 
-        IsRegistered: (name: string) => boolean;
+        isRegistered: (name: string) => boolean;
 
-        GetRegistration(name: string): Typefac.Core.Registration.IComponentRegistration;
+        getRegistration(name: string): Typefac.Core.Registration.IComponentRegistration;
 
-        GetRegistrationOrNull(name: string): Typefac.Core.Registration.IComponentRegistration;
+        getRegistrationOrNull(name: string): Typefac.Core.Registration.IComponentRegistration;
 
-        GetRegistrations(name: string): Typefac.Core.Registration.IComponentRegistration[];
+        getRegistrations(name: string): Typefac.Core.Registration.IComponentRegistration[];
 
-        GetRegistrationsOrNull(name: string): Typefac.Core.Registration.IComponentRegistration[];
+        getRegistrationsOrNull(name: string): Typefac.Core.Registration.IComponentRegistration[];
     }
 }

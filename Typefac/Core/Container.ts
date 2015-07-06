@@ -1,37 +1,37 @@
 ﻿module Typefac.Core {
     export interface IContainer {
-        ComponentRegistry: Registration.IComponentRegistry;
+        componentRegistry: Registration.IComponentRegistry;
 
-        ResolveComponent<T>(name: string): T;
+        resolveComponent<T>(name: string): T;
     }
 
     export class Container implements IContainer {
         private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
 
-        public ComponentRegistry: Registration.IComponentRegistry;
+        public componentRegistry: Registration.IComponentRegistry;
 
-        public ResolveComponent<T>(name: string): T {
-            var component = this.ComponentRegistry.GetRegistrationOrNull(name);
+        public resolveComponent<T>(name: string): T {
+            var component = this.componentRegistry.getRegistrationOrNull(name);
 
             if (!component) {
                 return null;
             }
             
-            var parameters = this.GetParameters(component);
-            var depenancies = this.CreateDependancies(parameters);
+            var parameters = this.getParameters(component);
+            var depenancies = this.createDependancies(parameters);
             var object = {};
 
-            component.Type.apply(object, depenancies);
+            component.type.apply(object, depenancies);
 
             return <T>object;
         }
 
-        private GetParameters(component: Typefac.Core.Registration.IComponentRegistration): string[] {
-            if (!component.Names || component.Names.length <= 0) {
+        private getParameters(component: Typefac.Core.Registration.IComponentRegistration): string[] {
+            if (!component.names || component.names.length <= 0) {
                 return new Array<string>();
             }
 
-            var result = component.Type.toString().match(this.functionArguments);
+            var result = component.type.toString().match(this.functionArguments);
             if (result === null) {
                 return new Array<string>();
             }
@@ -43,12 +43,12 @@
             return new Array<string>(result[1]); 
         }
 
-        private ResolveParameters(parameters: string[]) : string[] {
+        private resolveParameters(parameters: string[]) : string[] {
             var registeredDependancies = new Array<string>();
 
             for (var i = 0; i < parameters.length; i++) {
                 var parameter = parameters[i];
-                if (this.ComponentRegistry.IsRegistered(parameter)) {
+                if (this.componentRegistry.isRegistered(parameter)) {
                     registeredDependancies.push(parameter);
                 }
             }
@@ -56,12 +56,12 @@
             return registeredDependancies;
         }
 
-        private CreateDependancies(parameters: string[]): Array<any> {
+        private createDependancies(parameters: string[]): Array<any> {
             var objects = new Array<any>();
 
             for (var i = 0; i < parameters.length; i++) {
                 var parameter = parameters[i];
-                objects.push(this.ResolveComponent(parameter));
+                objects.push(this.resolveComponent(parameter));
             }
 
             return objects;

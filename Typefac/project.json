@@ -1,15 +1,16 @@
 ﻿{
-	"version": "1.0.0-*",
-	"description": "",
-	"authors": [ "" ],
-	"tags": [ "" ],
-	"projectUrl": "",
+	"title": "Typefac",
+	"version": "0.0.1-*",
+	"description": "TypeScript Inversion of Control library based on Autofac.",
+	"authors": [ "Christopher Haws" ],
+	"tags": [ "Typefac", "TypeScript", "IoC", "DI" ],
+	"projectUrl": "https://github.com/ChristopherHaws/Typefac",
 	"licenseUrl": "",
 
 	"dependencies": {
 	},
 
 	"frameworks": {
-		"dnx451": { },
+		"dnx451": { }
 	}
 }
