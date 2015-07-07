@@ -1,10 +1,11 @@
 module Testing {
     export interface IFoo {
-        
+        type: string;
     }
 
     export class Foo implements IFoo {
         public randomNumber: number;
+        public type = "Foo";
 
         constructor() {
             this.randomNumber = Math.random();
@@ -13,6 +14,7 @@ module Testing {
 
     export class Foo2 implements IFoo {
         public randomNumber: number;
+        public type = "Foo2";
 
         constructor() {
             this.randomNumber = Math.random();
@@ -53,7 +55,7 @@ QUnit.test("InstancePerDependency returns a new instance each resolve",(assert) 
     var instanceOne = container.resolve<Testing.Foo>("Foo");
     var instanceTwo = container.resolve<Testing.Foo>("Foo");
 
-    assert.ok(instanceOne !== instanceTwo, "Resolve returned different instances.");
+    assert.notEqual(instanceOne, instanceTwo, "Resolve returned different instances.");
 });
 
 QUnit.test("SingleInstance returns a the same instance each resolve",(assert) => {
@@ -69,7 +71,27 @@ QUnit.test("SingleInstance returns a the same instance each resolve",(assert) =>
     var instanceOne = container.resolve<Testing.Foo>("Foo");
     var instanceTwo = container.resolve<Testing.Foo>("Foo");
 
-    assert.ok(instanceOne === instanceTwo, "Resolve returned the same instances.");
+    assert.equal(instanceOne, instanceTwo, "Resolve returned the same instances.");
+});
+
+QUnit.test("Last type registered gets resolved first",(assert) => {
+    var builder = new Typefac.ContainerBuilder();
+
+    builder
+        .registerType(Testing.Foo)
+        .as("Foo")
+        .instancePerDependency();
+
+    builder
+        .registerType(Testing.Foo2)
+        .as("Foo")
+        .instancePerDependency();
+
+    var container = builder.build();
+
+    var instance = container.resolve<Testing.IFoo>("Foo");
+
+    assert.equal(instance.type, "Foo2", "Successfully resolved the last registered item.");
 });
 
 QUnit.test("Nested instances get resolved",(assert) => {
