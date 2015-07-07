@@ -7,7 +7,7 @@ module Typefac.Builder {
         public component: Typefac.Core.Registration.ComponentRegistration;
 
         public as = (serviceName: string): IRegistrationBuilder => {
-            this.component.names.push(serviceName);
+            this.component.names.push(serviceName.toLowerCase());
             return this;
         }
 

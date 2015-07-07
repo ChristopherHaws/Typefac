@@ -3,5 +3,6 @@
         names: string[];
         sharing: Typefac.Core.InstanceSharing;
         type: Function;
+        instance: Object;
     }
 }

@@ -51,10 +51,10 @@
         public getRegistrationsOrNull = (name: string): Typefac.Core.Registration.IComponentRegistration[] => {
             var registrations: Typefac.Core.Registration.IComponentRegistration[] = [];
 
-            for (var i = this.components.length; i >= 0; i--) {
+            for (var i = this.components.length-1; i >= 0; i--) {
                 var component = this.components[i];
 
-                if (component.names.indexOf(name) === 1) {
+                if (component.names.indexOf(name) !== -1) {
                     registrations.push(component);
                 }
             }

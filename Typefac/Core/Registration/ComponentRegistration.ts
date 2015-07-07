@@ -9,5 +9,6 @@
         public names: string[];
         public sharing: Typefac.Core.InstanceSharing;
         public type: Function;
+        public instance: Object;
     }
 }
