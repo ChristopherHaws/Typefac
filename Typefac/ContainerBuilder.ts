@@ -3,7 +3,12 @@ module Typefac {
 		private wasBuilt: boolean;
 		private registrations: Typefac.Builder.IRegistrationBuilder[];
 
-		public build(): Typefac.Core.IContainer {
+		constructor() {
+			this.wasBuilt = false;
+			this.registrations = [];
+		}
+
+		public build = (): Typefac.Core.IContainer => {
 			if (this.wasBuilt) {
 				throw new Error("build() or update() can only be called once on a ContainerBuilder.");
 			}
@@ -21,8 +26,12 @@ module Typefac {
 			return container;
 		}
 
-		public registerType(type: Function): Typefac.Builder.IRegistrationBuilder {
-			return new Typefac.Builder.RegistrationBuilder(type);
+		public registerType = (type: Function): Typefac.Builder.IRegistrationBuilder => {
+			var registration = new Typefac.Builder.RegistrationBuilder(type);
+			
+			this.registrations.push(registration);
+			
+			return registration;
 		}
 	}
 }

@@ -7,10 +7,14 @@
 
     export class Container implements IContainer {
         private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
+        
+        constructor() {
+            this.componentRegistry = new Typefac.Core.Registration.ComponentRegistry();
+        }
 
         public componentRegistry: Registration.IComponentRegistry;
 
-        public resolveComponent<T>(name: string): T {
+        public resolveComponent = <T>(name: string): T => {
             var component = this.componentRegistry.getRegistrationOrNull(name);
 
             if (!component) {
@@ -26,7 +30,7 @@
             return <T>object;
         }
 
-        private getParameters(component: Typefac.Core.Registration.IComponentRegistration): string[] {
+        private getParameters = (component: Typefac.Core.Registration.IComponentRegistration): string[] => {
             if (!component.names || component.names.length <= 0) {
                 return new Array<string>();
             }
@@ -43,7 +47,7 @@
             return new Array<string>(result[1]); 
         }
 
-        private resolveParameters(parameters: string[]) : string[] {
+        private resolveParameters = (parameters: string[]) : string[] => {
             var registeredDependancies = new Array<string>();
 
             for (var i = 0; i < parameters.length; i++) {
@@ -56,7 +60,7 @@
             return registeredDependancies;
         }
 
-        private createDependancies(parameters: string[]): Array<any> {
+        private createDependancies = (parameters: string[]): Array<any> => {
             var objects = new Array<any>();
 
             for (var i = 0; i < parameters.length; i++) {
