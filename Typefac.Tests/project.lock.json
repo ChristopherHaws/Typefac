@@ -2,8 +2,29 @@
   "locked": false,
   "version": -9998,
   "projectFileDependencyGroups": {
-    "": [],
+    "": [
+      "qunit.TypeScript.DefinitelyTyped >= 0.1.7"
+    ],
     "DNX,Version=v4.5.1": []
   },
-  "libraries": {}
+  "libraries": {
+    "qunit.TypeScript.DefinitelyTyped/0.1.7": {
+      "serviceable": false,
+      "sha": "oucf72ZjDjYPIO+gONxwJcUveq4+PpJiwfnuCXZ03ZJv5vMrztrgTxcLu1N28ktTNYsIWZkEXbCEtWzIOxzymQ==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "qunit.TypeScript.DefinitelyTyped.0.1.7.nupkg",
+        "qunit.TypeScript.DefinitelyTyped.0.1.7.nupkg.sha512",
+        "qunit.TypeScript.DefinitelyTyped.nuspec",
+        "Content/Scripts/typings/qunit/qunit.d.ts"
+      ]
+    }
+  }
 }

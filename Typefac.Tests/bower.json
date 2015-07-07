@@ -1,0 +1,7 @@
+{
+	"name": "Typefac.Tests",
+	"private": true,
+	"dependencies": {
+		"qunit": "^1.18.0"
+	}
+}
