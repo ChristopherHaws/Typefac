@@ -25,7 +25,7 @@ module Typefac.Utilities {
 		}
 		
 		public static lastOrDefault = <T>(values: T[], predicate: (value: T, index: number) => boolean): T => {
-			for (var i = values.length - 1; i > 0; i--) {
+			for (var i = values.length - 1; i >= 0; i--) {
 				var value = values[i];
 				
 				if (predicate(value, i)) {

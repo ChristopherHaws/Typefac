@@ -27,15 +27,13 @@
         }
 
         public getRegistrationOrNull = (name: string): Typefac.Core.Registration.IComponentRegistration => {
-            for (var i = this.components.length-1; i >= 0; i--) {
-                var component = this.components[i];
-                
-                if (component.names.indexOf(name) !== -1) {
-                    return component;
+			return Typefac.Utilities.ArrayEx.lastOrDefault(this.components, (component) => {
+				if (component.names.indexOf(name.toLowerCase()) !== -1) {
+                    return true;
                 }
-            }
 
-            return null;
+				return false;
+			});
         }
         
         public getRegistrations = (name: string): Typefac.Core.Registration.IComponentRegistration[] => {
@@ -48,18 +46,14 @@
             return components;
         }
 
-        public getRegistrationsOrNull = (name: string): Typefac.Core.Registration.IComponentRegistration[] => {
-            var registrations: Typefac.Core.Registration.IComponentRegistration[] = [];
-
-            for (var i = this.components.length-1; i >= 0; i--) {
-                var component = this.components[i];
-
-                if (component.names.indexOf(name) !== -1) {
-                    registrations.push(component);
+        public getRegistrationsOrNull = (name: string): Typefac.Core.Registration.IComponentRegistration[]=> {
+			return Typefac.Utilities.ArrayEx.where(this.components, (component) => {
+				if (component.names.indexOf(name.toLowerCase()) !== -1) {
+                    return true;
                 }
-            }
 
-            return registrations;
+				return false;
+			});
         }
     }
 }

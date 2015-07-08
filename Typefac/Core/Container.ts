@@ -24,27 +24,24 @@
         public componentRegistry: Registration.IComponentRegistry;
 
         public resolve = <T>(name: string): T => {
-            var lowerName = name.toLowerCase();
-            
-			var rule = Typefac.Utilities.ArrayEx.firstOrDefault(this.collectionNamingRules, (rule) => {
-				if (rule.isCollection(lowerName)) {
+			var collectionNamingRule = Typefac.Utilities.ArrayEx.firstOrDefault(this.collectionNamingRules, (rule) => {
+				if (rule.isCollection(name)) {
 					return true;
 				}
 				
 				return false;
 			});
 			
-			if (rule) {
-				lowerName = rule.getName(lowerName);
-                return <T><Object>this.resolveMultiple(lowerName);
+			if (collectionNamingRule) {
+				name = collectionNamingRule.getName(name);
+                return <T><Object>this.resolveMultiple(name);
             }
             
-            return <T>this.resolveSingle(lowerName);
+            return <T>this.resolveSingle(name);
         }
         
         public resolveSingle = <T>(name: string): T => {
-            var lowerName = name.toLowerCase();
-            var component = this.componentRegistry.getRegistration(lowerName);
+            var component = this.componentRegistry.getRegistration(name);
             
             var object = this.resolveComponent(component);
                 
@@ -56,8 +53,7 @@
         }
         
         public resolveMultiple = <T>(name: string): T[] => {
-            var lowerName = name.toLowerCase();
-            var components = this.componentRegistry.getRegistrations(lowerName);
+            var components = this.componentRegistry.getRegistrations(name);
                 
             if (components.length <= 0) {
                 throw new Error(`Unable to find any components named '${name}'.`);

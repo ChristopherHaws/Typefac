@@ -15,4 +15,9 @@
         constructor(public foo: Foo) {
         }
     }
+
+    export class Bar2 {
+        constructor(public bar: Bar) {
+        }
+    }
 }
