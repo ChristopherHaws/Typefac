@@ -1,40 +1,41 @@
-﻿QUnit.test("Last type registered gets resolved first",(assert) => {
-    var builder = new Typefac.ContainerBuilder();
+﻿module Tests.Resolving {
+    QUnit.test("Last type registered gets resolved first", (assert) => {
+        var builder = new Typefac.ContainerBuilder();
 
-    builder
-        .registerType(Tests.Foo)
-        .as("Foo")
-        .instancePerDependency();
+        builder
+            .registerType(Foo)
+            .as("Foo")
+            .instancePerDependency();
 
-    builder
-        .registerType(Tests.Foo2)
-        .as("Foo")
-        .instancePerDependency();
+        builder
+            .registerType(Foo2)
+            .as("Foo")
+            .instancePerDependency();
 
-    var container = builder.build();
+        var container = builder.build();
 
-    var instance = container.resolve<Tests.IFoo>("Foo");
+        var instance = container.resolve<IFoo>("Foo");
+        
+        assert.ok(instance instanceof Foo2, "Successfully resolved the last registered item.");
+    });
 
-    assert.equal(instance.type, "Foo2", "Successfully resolved the last registered item.");
-    assert.ok(instance instanceof Tests.Foo2, "Successfully resolved the last registered item.");
-});
+    QUnit.test("Nested instances get resolved", (assert) => {
+        var builder = new Typefac.ContainerBuilder();
 
-QUnit.test("Nested instances get resolved",(assert) => {
-    var builder = new Typefac.ContainerBuilder();
+        builder
+            .registerType(Foo)
+            .as("Foo")
+            .singleInstance();
 
-    builder
-        .registerType(Tests.Foo)
-        .as("Foo")
-        .singleInstance();
+        builder
+            .registerType(Bar)
+            .as("Bar")
+            .singleInstance();
 
-    builder
-        .registerType(Tests.Bar)
-        .as("Bar")
-        .singleInstance();
+        var container = builder.build();
 
-    var container = builder.build();
+        var instance = container.resolve<Bar>("Bar");
 
-    var instance = container.resolve<Tests.Bar>("Bar");
-
-    assert.ok(instance, "Resolve successfully returned an object.");
-});
+        assert.ok(instance, "Resolve successfully returned an object.");
+    });
+}
