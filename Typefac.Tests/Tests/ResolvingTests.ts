@@ -1,5 +1,5 @@
 ﻿module Tests.Resolving {
-    QUnit.test("Last type registered gets resolved first", (assert) => {
+    QUnit.test("When I resolve a component that has multiple components with the same name", (assert) => {
         var builder = new Typefac.ContainerBuilder();
 
         builder
@@ -16,10 +16,10 @@
 
         var instance = container.resolve<IFoo>("Foo");
         
-        assert.ok(instance instanceof Foo2, "Successfully resolved the last registered item.");
+        assert.ok(instance instanceof Foo2, "Then I want to get the last registered component");
     });
 
-    QUnit.test("Nested instances get resolved", (assert) => {
+    QUnit.test("When I resolve a component with multiple levels of dependencies", (assert) => {
         var builder = new Typefac.ContainerBuilder();
 
         builder
@@ -41,14 +41,14 @@
 
         var instance = container.resolve<Bar2>("Bar2");
 
-        assert.ok(instance, "Successfully resolved an object.");
-        assert.ok(instance.bar, "Successfully resolved first child.");
-        assert.ok(instance.bar.foo, "Successfully resolved second child.");
+        assert.ok(instance, "Then I want an instance of the component");
+        assert.ok(instance.bar, "Then I want the first level dependency to be resolved");
+        assert.ok(instance.bar.foo, "Then I want the second level dependency to be resolved");
     });
 
 
 
-    QUnit.test("Nested",(assert) => {
+    QUnit.test("When I try to resolve a component that doesn't exist",(assert) => {
         var builder = new Typefac.ContainerBuilder();
 
         builder
@@ -60,7 +60,8 @@
 		
         assert.throws(
 			() => { container.resolve<Bar2>("InvalidComponent"); },
-			new Error("Could not find component 'InvalidComponent'.")
+			new Error("Could not find component 'InvalidComponent'."),
+			"Then I want an error to be thrown"
 		);
     });
 }

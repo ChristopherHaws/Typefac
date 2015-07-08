@@ -15,7 +15,7 @@
         }
     }
 
-    QUnit.test("CollectionSuffixCollectionNamingRule resolves parameters ending in the word 'Collection'.",(assert) => {
+    QUnit.test("When I have a parameter with the suffix 'Collection'.",(assert) => {
         var builder = new Typefac.ContainerBuilder();
 
         builder
@@ -37,10 +37,11 @@
 
         var instance = container.resolve<ClassWithCollectionParameter>("ClassWithCollectionParameter");
 
-        assert.equal(instance.fooCollection.length, 2, "Successfully resolved class with all instances of dependency.");
+        assert.ok(Array.isArray(instance.fooCollection), "Then I want the parameter to be resolved as a collection");
+        assert.equal(instance.fooCollection.length, 2, "Then I want the collection to contain all of the types registered as the parameter name without the suffix");
     });
 
-    QUnit.test("ArraySuffixCollectionNamingRule resolves parameters ending in the word 'Array'.",(assert) => {
+    QUnit.test("When I have a parameter with the suffix 'Array'.",(assert) => {
         var builder = new Typefac.ContainerBuilder();
 
         builder
@@ -62,7 +63,8 @@
 
         var instance = container.resolve<ClassWithArrayParameter>("ClassWithArrayParameter");
 
-        assert.equal(instance.fooArray.length, 2, "Successfully resolved class with all instances of dependency.");
+        assert.ok(Array.isArray(instance.fooArray), "Then I want the parameter to be resolved as a collection");
+        assert.equal(instance.fooArray.length, 2, "Then I want the collection to contain all of the types registered as the parameter name without the suffix");
     });
 }
 
