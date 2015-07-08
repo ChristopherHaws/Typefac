@@ -11,20 +11,15 @@
 
     export class Container implements IContainer {
         private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
-		private collectionNamingRules: Typefac.Core.Collections.ICollectionNamingRule[];
         
         constructor() {
-			this.collectionNamingRules = [
-				new Typefac.Core.Collections.ArraySuffixCollectionNamingRule(),
-				new Typefac.Core.Collections.CollectionSuffixCollectionNamingRule()
-			];
             this.componentRegistry = new Typefac.Core.Registration.ComponentRegistry();
         }
 
         public componentRegistry: Registration.IComponentRegistry;
 
         public resolve = <T>(name: string): T => {
-			var collectionNamingRule = Typefac.Utilities.ArrayEx.firstOrDefault(this.collectionNamingRules, (rule) => {
+			var collectionNamingRule = Typefac.Utilities.ArrayEx.firstOrDefault(Configuration.collectionNamingRules, (rule) => {
 				if (rule.isCollection(name)) {
 					return true;
 				}

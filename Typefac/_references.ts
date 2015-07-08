@@ -1,0 +1,1 @@
+﻿/// <reference path="bower_components/dt-jquery/jquery.d.ts" />
