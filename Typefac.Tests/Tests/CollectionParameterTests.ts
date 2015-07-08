@@ -37,7 +37,7 @@
 
         var instance = container.resolve<ClassWithCollectionParameter>("ClassWithCollectionParameter");
 
-        assert.equal(instance.fooCollection.length, 2, "Successfully resolved class with all instances of dependancy.");
+        assert.equal(instance.fooCollection.length, 2, "Successfully resolved class with all instances of dependency.");
     });
 
     QUnit.test("ArraySuffixCollectionNamingRule resolves parameters ending in the word 'Array'.",(assert) => {
@@ -62,7 +62,7 @@
 
         var instance = container.resolve<ClassWithArrayParameter>("ClassWithArrayParameter");
 
-        assert.equal(instance.fooArray.length, 2, "Successfully resolved class with all instances of dependancy.");
+        assert.equal(instance.fooArray.length, 2, "Successfully resolved class with all instances of dependency.");
     });
 }
 
