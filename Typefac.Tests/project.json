@@ -1,16 +1,17 @@
-﻿{
-	"version": "1.0.0-*",
-	"description": "",
-	"authors": [ "" ],
-	"tags": [ "" ],
-	"projectUrl": "",
-	"licenseUrl": "",
+{
+    "version": "1.0.0-*",
+    "description": "",
+    "authors": [ "" ],
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
+    "webroot": "wwwroot",
 
-	"dependencies": {
-		"qunit.TypeScript.DefinitelyTyped": "0.1.7"
-	},
+    "dependencies": {
+        "Typefac": "0.0.1-*"
+    },
 
-	"frameworks": {
-		"dnx451": { }
-	}
+    "frameworks": {
+        "dnx451": { }
+    }
 }

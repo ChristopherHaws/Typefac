@@ -3,6 +3,7 @@
 	"name": "Typefac.Tests",
 	"private": true,
 	"devDependencies": {
-		"gulp": "3.9.0"
+		"gulp": "3.9.0",
+		"gulp-tsc": "^0.10.1"
 	}
 }

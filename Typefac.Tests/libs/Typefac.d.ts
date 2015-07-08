@@ -33,14 +33,13 @@ declare module Typefac.Core {
     }
     class Container implements IContainer {
         private functionArguments;
+        private collectionNamingRules;
         constructor();
         componentRegistry: Registration.IComponentRegistry;
         resolve: <T>(name: string) => T;
         resolveSingle: <T>(name: string) => T;
         resolveMultiple: <T>(name: string) => T[];
-        resolveComponent: (component: Registration.IComponentRegistration) => Object;
-        private isParameterNameCollection;
-        private getCollectionParameterName;
+        private resolveComponent;
         private getParameters;
         private resolveParameters;
         private createDependancies;
@@ -59,6 +58,23 @@ declare module Typefac.Core {
          * Each request for an instance will return the same object.
          */
         Shared = 1,
+    }
+}
+declare module Typefac.Utilities {
+    class ArrayEx {
+        static any: <T>(values: T[], predicate: (value: T, index: number) => boolean) => boolean;
+        static firstOrDefault: <T>(values: T[], predicate: (value: T, index: number) => boolean) => T;
+        static lastOrDefault: <T>(values: T[], predicate: (value: T, index: number) => boolean) => T;
+        static where: <T>(values: T[], predicate: (value: T, index: number) => boolean) => T[];
+    }
+}
+declare module Typefac.Utilities {
+    class StringEx {
+        static startsWith(value: string, prefix: string, ignoreCase?: boolean): boolean;
+        static endsWith(value: string, suffix: string, ignoreCase?: boolean): boolean;
+        static contains(value: string, search: string, ignoreCase?: boolean): boolean;
+        static removeFromBeginning(value: string, prefix: string, ignoreCase?: boolean): string;
+        static removeFromEnd(value: string, suffix: string, ignoreCase?: boolean): string;
     }
 }
 declare module Typefac.Core.Registration {
@@ -98,5 +114,23 @@ declare module Typefac.Core.Registration {
         getRegistrationOrNull(name: string): Typefac.Core.Registration.IComponentRegistration;
         getRegistrations(name: string): Typefac.Core.Registration.IComponentRegistration[];
         getRegistrationsOrNull(name: string): Typefac.Core.Registration.IComponentRegistration[];
+    }
+}
+declare module Typefac.Core.Collections {
+    class ArraySuffixCollectionNamingRule implements Typefac.Core.Collections.ICollectionNamingRule {
+        isCollection: (name: string) => boolean;
+        getName: (name: string) => string;
+    }
+}
+declare module Typefac.Core.Collections {
+    class CollectionSuffixCollectionNamingRule implements Typefac.Core.Collections.ICollectionNamingRule {
+        isCollection: (name: string) => boolean;
+        getName: (name: string) => string;
+    }
+}
+declare module Typefac.Core.Collections {
+    interface ICollectionNamingRule {
+        isCollection(name: string): boolean;
+        getName(name: string): string;
     }
 }

@@ -1,12 +1,12 @@
 {
-	"compilerOptions": {
-		"module": "amd",
-		"noImplicitAny": false,
-		"noEmitOnError": true,
-		"removeComments": false,
-		"sourceMap": true,
-		"target": "es5",
-		"out": "../artifacts/bin/Typefac/Typefac.js",
-		"declaration": true
-	}
+  "compilerOptions": {
+    "module": "amd",
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "out": "../artifacts/bin/Typefac/Typefac.js",
+    "declaration": true
+  }
 }
