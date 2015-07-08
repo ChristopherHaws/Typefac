@@ -11,8 +11,13 @@
 
     export class Container implements IContainer {
         private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
+		private collectionNamingRules: Typefac.Core.Collections.ICollectionNamingRule[];
         
         constructor() {
+			this.collectionNamingRules = [
+				new Typefac.Core.Collections.ArraySuffixCollectionNamingRule(),
+				new Typefac.Core.Collections.CollectionSuffixCollectionNamingRule()
+			];
             this.componentRegistry = new Typefac.Core.Registration.ComponentRegistry();
         }
 
@@ -20,10 +25,19 @@
 
         public resolve = <T>(name: string): T => {
             var lowerName = name.toLowerCase();
-            
-            if(this.isParameterNameCollection(lowerName)) {
-                return <T><Object>this.resolveMultiple(lowerName);
-            }
+			
+			var rule = Typefac.Utilities.ArrayEx.firstOrDefault(this.collectionNamingRules, (rule) => {
+				if (rule.isCollection(lowerName)) {
+					return true;
+				}
+				
+				return false;
+			});
+			
+			if (rule) {
+				lowerName = rule.getName(lowerName);
+				return <T><Object>this.resolveMultiple(lowerName);
+			}
             
             return <T>this.resolveSingle(lowerName);
         }
@@ -43,8 +57,7 @@
         
         public resolveMultiple = <T>(name: string): T[] => {
             var lowerName = name.toLowerCase();
-            var collectionParameterName = this.getCollectionParameterName(lowerName);
-            var components = this.componentRegistry.getRegistrationsOrNull(collectionParameterName);
+            var components = this.componentRegistry.getRegistrationsOrNull(lowerName);
                 
             if (!components || components.length <= 0) {
                 return null;
@@ -61,7 +74,7 @@
             return objects;
         }
         
-        public resolveComponent = (component: Typefac.Core.Registration.IComponentRegistration): Object => {
+        private resolveComponent = (component: Typefac.Core.Registration.IComponentRegistration): Object => {
             if (!component) {
                 return null;
             }
@@ -71,34 +84,16 @@
             }
             
             var parameters = this.getParameters(component);
-            var depenancies = this.createDependancies(parameters);
-            var object = {};
-
-            component.type.apply(object, depenancies);
+            var dependancies = this.createDependancies(parameters);
+			
+			var boundClassDeclaration = Object.bind.apply(component.type, [null].concat(dependancies));
+            var object = new boundClassDeclaration();
             
             if(component.sharing == InstanceSharing.Shared) {
                 component.instance = object;
             }
 
             return object;
-        }
-        
-        private isParameterNameCollection = (name: string): boolean => {
-            // Begins with all
-            if(name.substr(0, 3) !== "all") {
-                return false;
-            }
-            
-            // Ends with s
-            if(name.indexOf("s", name.length - 1) === -1) {
-                return false;
-            }
-            
-            return true;
-        }
-        
-        private getCollectionParameterName = (name: string): string => {
-            return name.substr(3, name.length-4);
         }
 
         private getParameters = (component: Typefac.Core.Registration.IComponentRegistration): string[] => {
