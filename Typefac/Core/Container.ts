@@ -30,7 +30,7 @@
         
         public resolveSingle = <T>(name: string): T => {
             var lowerName = name.toLowerCase();
-            var component = this.componentRegistry.getRegistrationOrNull(lowerName);
+            var component = this.componentRegistry.getRegistration(lowerName);
             
             var object = this.resolveComponent(component);
                 
@@ -44,10 +44,10 @@
         public resolveMultiple = <T>(name: string): T[] => {
             var lowerName = name.toLowerCase();
             var collectionParameterName = this.getCollectionParameterName(lowerName);
-            var components = this.componentRegistry.getRegistrationsOrNull(collectionParameterName);
+            var components = this.componentRegistry.getRegistrations(collectionParameterName);
                 
-            if (!components || components.length <= 0) {
-                return null;
+            if (components.length <= 0) {
+                throw new Error(`Unable to find any components named '${name}'.`);
             }
             
             var objects: T[] = [];
@@ -61,11 +61,7 @@
             return objects;
         }
         
-        public resolveComponent = (component: Typefac.Core.Registration.IComponentRegistration): Object => {
-            if (!component) {
-                return null;
-            }
-            
+        private resolveComponent = (component: Typefac.Core.Registration.IComponentRegistration): Object => {
             if(component.sharing == InstanceSharing.Shared && component.instance) {
                 return component.instance;
             }
