@@ -45,9 +45,7 @@
         assert.ok(instance.bar, "Then I want the first level dependency to be resolved");
         assert.ok(instance.bar.foo, "Then I want the second level dependency to be resolved");
     });
-
-
-
+    
     QUnit.test("When I try to resolve a component that doesn't exist",(assert) => {
         var builder = new Typefac.ContainerBuilder();
 
@@ -61,7 +59,38 @@
         assert.throws(
 			() => { container.resolve<Bar2>("InvalidComponent"); },
 			new Error("Could not find component 'InvalidComponent'."),
-			"Then I want an error to be thrown"
+			"Then I want an error to be thrown letting me know that the component could not be found"
+		);
+    });
+
+    QUnit.test("When I register a component as itself",(assert) => {
+        var builder = new Typefac.ContainerBuilder();
+
+        builder
+            .registerType(Foo)
+            .asSelf()
+            .singleInstance();
+
+        var container = builder.build();
+
+        var foo = container.resolve<Foo>("Foo");
+
+        assert.ok(foo instanceof Foo, "Then I want to be able to resolve the component using the class name");
+    });
+
+    QUnit.test("When I register a component using the same name multiple times",(assert) => {
+        var builder = new Typefac.ContainerBuilder();
+        
+        assert.throws(
+			() => {
+				builder
+					.registerType(Foo)
+					.asSelf()
+					.as("Foo")
+					.singleInstance();
+			},
+			new Error("Could not register 'Foo' as 'Foo' because is has already been registered using that name."),
+			"Then I want an error to be thrown letting me know that the name has already been used"
 		);
     });
 }

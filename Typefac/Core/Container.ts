@@ -1,14 +1,4 @@
 ﻿module Typefac.Core {
-    export interface IContainer {
-        componentRegistry: Registration.IComponentRegistry;
-
-        resolve<T>(name: string): T;
-
-        resolveSingle<T>(name: string): T;
-
-        resolveMultiple<T>(name: string): T[];
-    }
-
     export class Container implements IContainer {
         private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
         
@@ -76,7 +66,7 @@
 			var boundClassDeclaration = Object.bind.apply(component.type, [null].concat(dependancies));
             var object = new boundClassDeclaration();
             
-            if(component.sharing == InstanceSharing.Shared) {
+            if(component.sharing === InstanceSharing.Shared) {
                 component.instance = object;
             }
 

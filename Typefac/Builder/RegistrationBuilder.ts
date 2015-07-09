@@ -6,6 +6,12 @@ module Typefac.Builder {
 
         public component: Typefac.Core.Registration.ComponentRegistration;
 
+        public asSelf = (): IRegistrationBuilder => {
+			var className = Typefac.Utilities.ObjectEx.getTypeClassName(this.component.type);
+
+            return this.as(className);
+        }
+
         public as = (serviceName: string): IRegistrationBuilder => {
 			var serviceNameLower = serviceName.toLowerCase();
 
@@ -17,15 +23,17 @@ module Typefac.Builder {
 				return false;
 			});
 			
-
 			if (matchedCollectionNamingRule) {
 				var ruleTypeName = Typefac.Utilities.ObjectEx.getClassName(matchedCollectionNamingRule);
 				throw new Error(`Could not register '${serviceName}' because it matches the reserved collection naming rule '${ruleTypeName}'.`);
-			}
+            }
 
-			
-
-            this.component.names.push(serviceName.toLowerCase());
+            if (this.component.names.indexOf(serviceNameLower) !== -1) {
+				var className = Typefac.Utilities.ObjectEx.getTypeClassName(this.component.type);
+				throw new Error(`Could not register '${className}' as '${serviceName}' because is has already been registered using that name.`);
+            }
+            
+			this.component.names.push(serviceNameLower);
             return this;
         }
 
