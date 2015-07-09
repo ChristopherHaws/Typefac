@@ -33,5 +33,9 @@ module Typefac {
 			
 			return registration;
 		}
+
+		public registerInstance = (instance: Object): Typefac.Builder.IRegistrationBuilder => {
+			throw new Error("Not implemented");
+		}
 	}
 }
