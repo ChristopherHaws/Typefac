@@ -56,7 +56,7 @@
         }
         
         private resolveComponent = (component: Typefac.Core.Registration.IComponentRegistration): Object => {
-            if(component.sharing == InstanceSharing.Shared && component.instance) {
+            if(component.sharing === InstanceSharing.Shared && component.instance) {
                 return component.instance;
             }
             

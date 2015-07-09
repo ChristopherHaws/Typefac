@@ -7,7 +7,7 @@ module Typefac.Builder {
         public component: Typefac.Core.Registration.ComponentRegistration;
 
         public asSelf = (): IRegistrationBuilder => {
-			var className = Typefac.Utilities.ObjectEx.getTypeClassName(this.component.type);
+			var className = Typefac.Utilities.ObjectEx.getClassName(this.component.type);
 
             return this.as(className);
         }
@@ -29,7 +29,7 @@ module Typefac.Builder {
             }
 
             if (this.component.names.indexOf(serviceNameLower) !== -1) {
-				var className = Typefac.Utilities.ObjectEx.getTypeClassName(this.component.type);
+				var className = Typefac.Utilities.ObjectEx.getClassName(this.component.type);
 				throw new Error(`Could not register '${className}' as '${serviceName}' because is has already been registered using that name.`);
             }
             
