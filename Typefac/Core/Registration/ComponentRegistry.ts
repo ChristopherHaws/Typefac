@@ -1,12 +1,12 @@
 ﻿module Typefac.Core.Registration {
-    export class ComponentRegistry implements Typefac.Core.Registration.IComponentRegistry {
-        private components: Typefac.Core.Registration.IComponentRegistration[];
+    export class ComponentRegistry implements Registration.IComponentRegistry {
+        protected components: Registration.IComponentRegistration[];
         
         constructor() {
             this.components = [];
         }
 
-        public register = (component: Typefac.Core.Registration.IComponentRegistration): void => {
+        public register = (component: Registration.IComponentRegistration): void => {
             this.components.push(component);
         }
 
@@ -16,7 +16,7 @@
             return (!!component);
         }
 
-        public getRegistration = (name: string): Typefac.Core.Registration.IComponentRegistration => {
+        public getRegistration = (name: string): Registration.IComponentRegistration => {
             var component = this.getRegistrationOrNull(name);
 
             if (!component) {
@@ -26,8 +26,8 @@
             return component;
         }
 
-        public getRegistrationOrNull = (name: string): Typefac.Core.Registration.IComponentRegistration => {
-			return Typefac.Utilities.ArrayEx.lastOrDefault(this.components, (component) => {
+        public getRegistrationOrNull = (name: string): Registration.IComponentRegistration => {
+			return Utilities.ArrayEx.lastOrDefault(this.components, (component) => {
 				if (component.names.indexOf(name.toLowerCase()) !== -1) {
                     return true;
                 }
@@ -36,7 +36,7 @@
 			});
         }
         
-        public getRegistrations = (name: string): Typefac.Core.Registration.IComponentRegistration[] => {
+        public getRegistrations = (name: string): Registration.IComponentRegistration[] => {
             var components = this.getRegistrationsOrNull(name);
 
             if (!components || components.length <= 0) {
@@ -46,7 +46,7 @@
             return components;
         }
 
-        public getRegistrationsOrNull = (name: string): Typefac.Core.Registration.IComponentRegistration[]=> {
+        public getRegistrationsOrNull = (name: string): Registration.IComponentRegistration[]=> {
 			return this.components.filter((component) => {
 				if (component.names.indexOf(name.toLowerCase()) !== -1) {
                     return true;

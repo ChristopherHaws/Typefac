@@ -4,7 +4,7 @@ var tsc = require("gulp-tsc");
 
 gulp.task("build", function () {
 	gulp
-		.src(["./**/*ts", "!./{node_modules,node_modules/**}", "!./{bower_components,bower_components/**}"])
+		.src(["./**/*ts", "./**/*.d.ts", "!./{node_modules,node_modules/**}", "!./{bower_components,bower_components/**}"])
 		.pipe(tsc({
 			"module": "amd",
 			"noImplicitAny": false,

@@ -1,6 +1,6 @@
 ﻿module Typefac.Builder {
     export interface IRegistrationBuilder {
-        component: Typefac.Core.Registration.ComponentRegistration;
+        component: Core.Registration.IComponentRegistration;
 
         asSelf(): IRegistrationBuilder;
         as(name: string): IRegistrationBuilder;

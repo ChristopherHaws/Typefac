@@ -1,19 +1,19 @@
 module Typefac {
 	export class ContainerBuilder {
 		private wasBuilt: boolean;
-		private registrations: Typefac.Builder.IRegistrationBuilder[];
+		private registrations: Builder.IRegistrationBuilder[];
 
 		constructor() {
 			this.wasBuilt = false;
 			this.registrations = [];
 		}
 
-		public build = (): Typefac.Core.IContainer => {
+		public build = (): Core.IContainer => {
 			if (this.wasBuilt) {
 				throw new Error("build() or update() can only be called once on a ContainerBuilder.");
 			}
 
-            var container = new Typefac.Core.Container();
+            var container = new Core.Container();
 
             this.registrations.forEach((registration) => {
                 container.componentRegistry.register(registration.component);
@@ -24,15 +24,15 @@ module Typefac {
 			return container;
 		}
 
-		public registerType = (type: Function): Typefac.Builder.IRegistrationBuilder => {
-			var registration = new Typefac.Builder.RegistrationBuilder(type);
+		public registerType = (type: Function): Builder.IRegistrationBuilder => {
+			var registration = new Builder.RegistrationBuilder(type);
 			
 			this.registrations.push(registration);
 			
 			return registration;
 		}
 
-		public registerInstance = (instance: Object): Typefac.Builder.IRegistrationBuilder => {
+		public registerInstance = (instance: Object): Builder.IRegistrationBuilder => {
 			throw new Error("Not implemented");
 		}
 	}

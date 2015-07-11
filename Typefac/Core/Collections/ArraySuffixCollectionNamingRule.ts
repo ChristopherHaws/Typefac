@@ -1,11 +1,11 @@
 module Typefac.Core.Collections {
-	export class ArraySuffixCollectionNamingRule implements Typefac.Core.Collections.ICollectionNamingRule {
+	export class ArraySuffixCollectionNamingRule implements Collections.ICollectionNamingRule {
 		public isCollection = (name: string): boolean => {
-			return Typefac.Utilities.StringEx.endsWith(name, "Array", true);
+			return Utilities.StringEx.endsWith(name, "Array", true);
 		}
 		
 		public getName = (name: string): string => {
-			return Typefac.Utilities.StringEx.removeFromEnd(name, "Array", true);
+			return Utilities.StringEx.removeFromEnd(name, "Array", true);
 		}
 	}
 }
