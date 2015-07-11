@@ -13,13 +13,11 @@ module Typefac {
 				throw new Error("build() or update() can only be called once on a ContainerBuilder.");
 			}
 
-			var container = new Typefac.Core.Container();
+            var container = new Typefac.Core.Container();
 
-            for (var i = 0; i < this.registrations.length; i++) {
-                var registration = this.registrations[i];
-                
-				container.componentRegistry.register(registration.component);
-			}
+            this.registrations.forEach((registration) => {
+                container.componentRegistry.register(registration.component);
+		    });
 
 			this.wasBuilt = true;
 

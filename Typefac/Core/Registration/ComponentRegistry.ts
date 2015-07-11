@@ -47,13 +47,13 @@
         }
 
         public getRegistrationsOrNull = (name: string): Typefac.Core.Registration.IComponentRegistration[]=> {
-			return Typefac.Utilities.ArrayEx.where(this.components, (component) => {
+			return this.components.filter((component) => {
 				if (component.names.indexOf(name.toLowerCase()) !== -1) {
                     return true;
                 }
 
 				return false;
-			});
+	        });
         }
     }
 }

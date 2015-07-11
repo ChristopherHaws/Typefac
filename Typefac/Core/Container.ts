@@ -43,16 +43,10 @@
             if (components.length <= 0) {
                 throw new Error(`Unable to find any components named '${name}'.`);
             }
-            
-            var objects: T[] = [];
-            
-            for(var i = 0; i < components.length; i++){                
-                var object = this.resolveComponent(components[i]);
-    
-                objects.push(<T>object);
-            }
-            
-            return objects;
+
+			return components.map((component) => {
+				return <T>this.resolveComponent(component);
+	        });
         }
         
         private resolveComponent = (component: Typefac.Core.Registration.IComponentRegistration): Object => {
@@ -91,27 +85,19 @@
         }
 
         private resolveParameters = (parameters: string[]) : string[] => {
-            var registeredDependancies = new Array<string>();
+			return $.map(parameters, (parameter) => {
+				if (!this.componentRegistry.isRegistered(parameter)) {
+					return null;
+				}
 
-            for (var i = 0; i < parameters.length; i++) {
-                var parameter = parameters[i];
-                if (this.componentRegistry.isRegistered(parameter)) {
-                    registeredDependancies.push(parameter);
-                }
-            }
-
-            return registeredDependancies;
+				return parameter;
+			});
         }
 
         private createDependancies = (parameters: string[]): Array<any> => {
-            var objects = new Array<any>();
-
-            for (var i = 0; i < parameters.length; i++) {
-                var parameter = parameters[i];
-                objects.push(this.resolve(parameter));
-            }
-
-            return objects;
+			return parameters.map((parameter) => {
+				return <any>this.resolve(parameter);
+			});
         }
     }
 }
