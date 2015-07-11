@@ -4,11 +4,11 @@
 
 		constructor(inner: IComponentRegistration, lifetime: Lifetime.IComponentLifetime) {
 			if (inner == null) {
-				throw new Error("Value cannot be null.\nParameter name: inner");
+				throw new ArgumentNullException("inner");
 			}
 
 			if (lifetime == null) {
-				throw new Error("Value cannot be null.\nParameter name: lifetime");
+				throw new ArgumentNullException("lifetime");
 			}
 
 			this.inner = inner;

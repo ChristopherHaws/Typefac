@@ -10,7 +10,7 @@
 
 		public register = (registration: Registration.IComponentRegistration): void => {
 			if (registration == null) {
-				throw new Error("Value cannot be null.\nParameter name: registration");
+				throw new ArgumentNullException("registration");
 			}
 
 			var toRegister = registration;

@@ -4,7 +4,7 @@
 
 		constructor(lifetimeScopeTagsToMatch: string[]) {
 			if (!lifetimeScopeTagsToMatch) {
-				throw new Error("Value cannot be null.\nParameter name: lifetimeScopeTagsToMatch");
+				throw new ArgumentNullException("lifetimeScopeTagsToMatch");
 			}
 
 			this.tagsToMatch = lifetimeScopeTagsToMatch;
@@ -12,7 +12,7 @@
 
 		public findScope(mostNestedVisibleScope: ISharingLifetimeScope) {
 			if (!mostNestedVisibleScope) {
-				throw new Error("Value cannot be null.\nParameter name: mostNestedVisibleScope");
+				throw new ArgumentNullException("mostNestedVisibleScope");
 			}
 
 			var next = mostNestedVisibleScope;
@@ -24,7 +24,7 @@
 				next = next.parentLifetimeScope;
 			}
 			
-			throw new Error(`No scope with a Tag matching '${this.tagsToMatch.join(", ")}' is visible from the scope in which the instance was requested.`);
+			throw new DependencyResolutionException(`No scope with a Tag matching '${this.tagsToMatch.join(", ")}' is visible from the scope in which the instance was requested.`);
 		}
 	}
 }
