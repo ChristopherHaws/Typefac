@@ -1,4 +1,5 @@
 ﻿/// <reference path="exception.ts" />
+
 module Typefac {
     export class ArgumentNullException extends Exception {
 		private parameter: string;

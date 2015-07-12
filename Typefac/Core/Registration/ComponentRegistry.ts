@@ -6,7 +6,7 @@
             this.components = [];
         }
 
-        public register = (component: Registration.IComponentRegistration): void => {
+        public register = (component: IComponentRegistration): void => {
             this.components.push(component);
         }
 
@@ -16,7 +16,7 @@
             return (!!component);
         }
 
-        public getRegistration = (name: string): Registration.IComponentRegistration => {
+        public getRegistration = (name: string): IComponentRegistration => {
             var component = this.getRegistrationOrNull(name);
 
             if (!component) {
@@ -26,7 +26,7 @@
             return component;
         }
 
-        public getRegistrationOrNull = (name: string): Registration.IComponentRegistration => {
+        public getRegistrationOrNull = (name: string): IComponentRegistration => {
 			return Utilities.ArrayEx.lastOrDefault(this.components, (component) => {
 				if (component.names.indexOf(name.toLowerCase()) !== -1) {
                     return true;
@@ -36,7 +36,7 @@
 			});
         }
         
-        public getRegistrations = (name: string): Registration.IComponentRegistration[] => {
+        public getRegistrations = (name: string): IComponentRegistration[] => {
             var components = this.getRegistrationsOrNull(name);
 
             if (!components || components.length <= 0) {
@@ -46,7 +46,7 @@
             return components;
         }
 
-        public getRegistrationsOrNull = (name: string): Registration.IComponentRegistration[]=> {
+        public getRegistrationsOrNull = (name: string): IComponentRegistration[]=> {
 			return this.components.filter((component) => {
 				if (component.names.indexOf(name.toLowerCase()) !== -1) {
                     return true;

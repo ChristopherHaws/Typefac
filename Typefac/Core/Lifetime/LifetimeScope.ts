@@ -1,9 +1,13 @@
-﻿module Typefac.Core.Lifetime {
+﻿/// <reference path="../registration/icomponentregistry.ts" />
+
+module Typefac.Core.Lifetime {
+	import IComponentRegistry = Typefac.Core.Registration.IComponentRegistry;
+
 	export class LifetimeScope implements ILifetimeScope {
 		private selfRegistrationId: Utilities.Guid;
 		private static sharedInstances: {[id: string]: ILifetimeScope };
 
-		constructor(tag?: string) {
+		constructor(componentRegistry: IComponentRegistry, tag?: string) {
 			this.selfRegistrationId = Utilities.Guid.newGuid();
 			LifetimeScope.sharedInstances[this.selfRegistrationId.toString()] = this;
 

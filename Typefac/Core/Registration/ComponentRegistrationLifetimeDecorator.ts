@@ -1,8 +1,15 @@
-﻿module Typefac.Core.Registration {
+﻿/// <reference path="../instancesharing.ts" />
+/// <reference path="../../utilities/guid.ts" />
+/// <reference path="../lifetime/icomponentlifetime.ts" />
+
+module Typefac.Core.Registration {
+	import IComponentLifetime = Typefac.Core.Lifetime.IComponentLifetime;
+	import Guid = Utilities.Guid;
+
 	export class ComponentRegistrationLifetimeDecorator implements IComponentRegistration {
 		private inner: IComponentRegistration;
 
-		constructor(inner: IComponentRegistration, lifetime: Lifetime.IComponentLifetime) {
+		constructor(inner: IComponentRegistration, lifetime: IComponentLifetime) {
 			if (inner == null) {
 				throw new ArgumentNullException("inner");
 			}
@@ -15,11 +22,11 @@
 			this.lifetime = lifetime;
 		}
 
-		public get id(): Utilities.Guid {
+		public get id(): Guid {
 			return this.inner.id;
 		}
 
-		public get lifetime(): Core.Lifetime.IComponentLifetime {
+		public get lifetime(): IComponentLifetime {
 			return this.lifetime;
 		}
 
