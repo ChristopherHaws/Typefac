@@ -1,10 +1,9 @@
-﻿module Typefac.Features.StaticPropertyResolver {
+﻿module Typefac.Features.ServiceResolvers {
 	import IComponentRegistration = Typefac.Core.Registration.IComponentRegistration;
     import ObjectEx = Typefac.Utilities.ObjectEx;
+    import IServiceResolver = Typefac.Core.Resolving.IServiceResolver;
 
-    export class StaticPropertyResolver implements ICanResolveParameters {
-		private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
-
+    export class StaticPropertyServiceResolver implements IServiceResolver {
 		public canResolve(componentRegistration: IComponentRegistration): boolean {
 			if (!componentRegistration.type.hasOwnProperty("$inject") || !componentRegistration.type.propertyIsEnumerable("$inject")) {
 				return false;
@@ -23,7 +22,7 @@
             });
 		}
 
-        public getServices(componentRegistration: IComponentRegistration): string[]{
+        public getServiceNames(componentRegistration: IComponentRegistration): string[]{
             if (!this.canResolve(componentRegistration)) {
                 var className = ObjectEx.getClassName(componentRegistration.type);
                 throw new Error(`StaticPropertyResolver is not able to get the services from '${className}'.`);
@@ -33,19 +32,9 @@
 
             return requestedServices;
         }
-
-		private getParameterCount(component: Typefac.Core.Registration.IComponentRegistration): number {
-            var result = component.type.toString().match(this.functionArguments);
-
-            if (result === null || result[1] === "") {
-                return 0;
-            }
-
-			return result[1].length;
-        }
-
+        
         private validateParameterCount(componentRegistration: IComponentRegistration, requestedServices: Array<any>): boolean {
-			var parameterCount = this.getParameterCount(componentRegistration);
+            var parameterCount = ObjectEx.getFunctionArgumentsNames(componentRegistration.type).length;
 
             if (requestedServices.length !== parameterCount) {
 				return false;
@@ -63,10 +52,5 @@
                 return true;
             });
         }
-	}
-
-	export interface ICanResolveParameters {
-		canResolve(componentRegistration: IComponentRegistration): boolean;
-		getServices(componentRegistration: IComponentRegistration): string[];
 	}
 }
