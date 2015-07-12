@@ -21,9 +21,9 @@ module Typefac.Core.Lifetime {
 		public tag: string;
 
 		public beginLifetimeScope = (callback: (scope: ILifetimeScope) => void) => {
-			var scope = new LifetimeScope();
+			//var scope = new LifetimeScope();
 
-			callback(scope);
+			//callback(scope);
 		}
 	}
 }
