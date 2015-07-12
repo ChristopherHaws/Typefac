@@ -24,8 +24,7 @@
 
         public getServiceNames(componentRegistration: IComponentRegistration): string[]{
             if (!this.canResolve(componentRegistration)) {
-                var className = ObjectEx.getClassName(componentRegistration.type);
-                throw new Error(`StaticPropertyResolver is not able to get the services from '${className}'.`);
+                throw new Error(`StaticPropertyResolver is not able to get the services from '${componentRegistration.typeName}'.`);
             }
 
             var requestedServices = <Array<string>>componentRegistration.type["$inject"];

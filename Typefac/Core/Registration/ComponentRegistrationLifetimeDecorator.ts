@@ -44,6 +44,10 @@ module Typefac.Core.Registration {
 
 		public get instance() {
 			return this.inner.instance;
-		}
+        }
+
+        public get typeName(): string {
+            return this.inner.typeName;
+        }
 	}
 }

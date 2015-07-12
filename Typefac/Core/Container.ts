@@ -1,4 +1,8 @@
-﻿module Typefac.Core {
+﻿/// <reference path="../utilities/array.ts" />
+module Typefac.Core {
+    import ArrayEx = Typefac.Utilities.ArrayEx;
+    import ObjectEx = Typefac.Utilities.ObjectEx;
+
     export class Container implements IContainer {
         private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
         
@@ -31,7 +35,7 @@
             var object = this.resolveComponent(component);
                 
             if (!object) {
-                return null;
+                throw new Error(`Unable to find a component with a service named '${name}'.`);
             }
 
             return <T>object;
@@ -41,7 +45,7 @@
             var components = this.componentRegistry.getRegistrations(name);
                 
             if (components.length <= 0) {
-                throw new Error(`Unable to find any components named '${name}'.`);
+                throw new Error(`Unable to find any components with a service named '${name}'.`);
             }
 
 			return components.map((component) => {
@@ -53,8 +57,16 @@
             if(component.sharing === InstanceSharing.Shared && component.instance) {
                 return component.instance;
             }
-            
-            var parameters = this.getParameters(component);
+
+            var serviceResolver = ArrayEx.lastOrDefault(Configuration.serviceResolvers, (resolver) => {
+                return resolver.canResolve(component);
+            });
+
+            if (!serviceResolver) {
+                throw new Error(`Could not find a service resolver that can resolve '${component.typeName}'.`);
+            }
+
+            var parameters = serviceResolver.getServiceNames(component);
             var dependancies = this.createDependancies(parameters);
 
 			var boundClassDeclaration = Object.bind.apply(component.type, [null].concat(dependancies));
@@ -65,33 +77,6 @@
             }
 
             return object;
-        }
-        
-        private getParameters = (component: Core.Registration.IComponentRegistration): string[] => {
-            if (!component.names || component.names.length <= 0) {
-                return new Array<string>();
-            }
-
-            var result = component.type.toString().match(this.functionArguments);
-            if (result === null) {
-                return new Array<string>();
-            }
-
-            if (result[1] === "") {
-                return new Array<string>();
-            }
-
-            return new Array<string>(result[1]); 
-        }
-
-        private resolveParameters = (parameters: string[]) : string[] => {
-			return $.map(parameters, (parameter) => {
-				if (!this.componentRegistry.isRegistered(parameter)) {
-					return null;
-				}
-
-				return parameter;
-			});
         }
 
         private createDependancies = (parameters: string[]): Array<any> => {

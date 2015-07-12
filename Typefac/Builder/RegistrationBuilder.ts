@@ -16,15 +16,18 @@ module Typefac.Builder {
 
 	export class RegistrationBuilder implements IRegistrationBuilder {
         constructor(type: Function) {
+            if (typeof type !== "function") {
+                
+                throw new Error(`Unable to register type because it is not a valid function.\n${type.toString()}`);
+            }
+
             this.component = new ComponentRegistration(type);
         }
 
         public component: IComponentRegistration;
 
         public asSelf = (): IRegistrationBuilder => {
-			var className = ObjectEx.getClassName(this.component.type);
-
-            return this.as(className);
+            return this.as(this.component.typeName);
         }
 
         public as = (serviceName: string): IRegistrationBuilder => {
@@ -40,12 +43,11 @@ module Typefac.Builder {
 			
 			if (matchedCollectionNamingRule) {
 				var ruleTypeName = ObjectEx.getClassName(matchedCollectionNamingRule);
-				throw new Error(`Could not register '${serviceName}' because it matches the reserved collection naming rule '${ruleTypeName}'.`);
+			    throw new Error(`Could not register '${serviceName}' because it matches the reserved collection naming rule '${ruleTypeName}'.`);
             }
 
             if (this.component.names.indexOf(serviceNameLower) !== -1) {
-				var className = ObjectEx.getClassName(this.component.type);
-				throw new Error(`Could not register '${className}' as '${serviceName}' because is has already been registered using that name.`);
+                throw new Error(`Could not register '${this.component.typeName}' as '${serviceName}' because is has already been registered using that name.`);
             }
             
 			this.component.names.push(serviceNameLower);

@@ -1,4 +1,7 @@
-﻿module Typefac.Core.Registration {
+﻿/// <reference path="../../utilities/objectex.ts" />
+module Typefac.Core.Registration {
+    import ObjectEx = Typefac.Utilities.ObjectEx;
+
     export class ComponentRegistration implements IComponentRegistration {
         constructor(type: Function) {
             this.names = [];
@@ -12,5 +15,8 @@
         public sharing: Core.InstanceSharing;
         public type: Function;
         public instance: Object;
+        public get typeName(): string {
+            return ObjectEx.getClassName(this.type);
+        }
     }
 }

@@ -32,5 +32,10 @@
 		 * This instance of the class.
 		 */
         instance: Object;
+
+        /**
+         * The name of the type.
+         */
+        typeName: string;
     }
 }

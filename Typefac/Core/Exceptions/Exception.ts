@@ -1,11 +1,11 @@
 ﻿module Typefac {
-	export declare class Error {
+	export declare class ErrorClass {
 		public name: string;
 		public message: string;
 		constructor(message?: string);
 	}
 
-	export class Exception implements Error {
+    export class Exception implements ErrorClass {
         constructor(message: string) {
             this.name = "Exception";
             this.message = message;
