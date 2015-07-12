@@ -189,8 +189,8 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
-*.js
-*.js.map
+/**/*.js
+/**/*.js.map
 /.vs/config/applicationhost.config
 /Typefac.Tests/wwwroot/libs
 !gulpfile.js

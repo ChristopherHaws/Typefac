@@ -3,13 +3,13 @@
         private functionArguments = /^function\s*[^\(]*\(\s*([^\)]*)\)/m.source;
         
         constructor() {
-            this.componentRegistry = new Typefac.Core.Registration.ComponentRegistry();
+            this.componentRegistry = new Core.Registration.ComponentRegistry();
         }
 
         public componentRegistry: Registration.IComponentRegistry;
 
         public resolve = <T>(name: string): T => {
-			var collectionNamingRule = Typefac.Utilities.ArrayEx.firstOrDefault(Configuration.collectionNamingRules, (rule) => {
+			var collectionNamingRule = Utilities.ArrayEx.firstOrDefault(Configuration.collectionNamingRules, (rule) => {
 				if (rule.isCollection(name)) {
 					return true;
 				}
@@ -49,7 +49,7 @@
 	        });
         }
         
-        private resolveComponent = (component: Typefac.Core.Registration.IComponentRegistration): Object => {
+        private resolveComponent = (component: Core.Registration.IComponentRegistration): Object => {
             if(component.sharing === InstanceSharing.Shared && component.instance) {
                 return component.instance;
             }
@@ -67,7 +67,7 @@
             return object;
         }
         
-        private getParameters = (component: Typefac.Core.Registration.IComponentRegistration): string[] => {
+        private getParameters = (component: Core.Registration.IComponentRegistration): string[] => {
             if (!component.names || component.names.length <= 0) {
                 return new Array<string>();
             }
