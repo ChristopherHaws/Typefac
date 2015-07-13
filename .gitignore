@@ -191,6 +191,8 @@ ModelManifest.xml
 
 /**/*.js
 /**/*.js.map
+!/dist/**/*.js
+!/dist/**/*.js.map
 /.vs/config/applicationhost.config
 /Typefac.Tests/wwwroot/libs
 !gulpfile.js

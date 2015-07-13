@@ -12,7 +12,7 @@ gulp.task("build", function () {
 			"removeComments": false,
 			"sourceMap": true,
 			"target": "es5",
-			"out": "../../artifacts/bin/Typefac/Typefac.js",
+			"out": "../../dist/Typefac.js",
 			"declaration": true
 		}));
 });

@@ -5,7 +5,7 @@ var tsc = require("gulp-tsc");
 gulp.task("default", function () {
 
 	gulp
-		.src("../artifacts/bin/Typefac/*.*")
+		.src("../dist/*.*")
 		.pipe(gulp.dest("./wwwroot/libs/"));
 
 	gulp
