@@ -1,16 +1,17 @@
-﻿{
-	"title": "Typefac",
-	"version": "0.0.1-*",
-	"description": "TypeScript Inversion of Control library based on Autofac.",
-	"authors": [ "Christopher Haws" ],
-	"tags": [ "Typefac", "TypeScript", "IoC", "DI" ],
-	"projectUrl": "https://github.com/ChristopherHaws/Typefac",
-	"licenseUrl": "",
+{
+    "userSecretsId": "aspnet5-Typefac-20150717082137",
+    "title": "Typefac",
+    "version": "0.0.1-*",
+    "description": "TypeScript Inversion of Control library based on Autofac.",
+    "authors": [ "Christopher Haws" ],
+    "tags": [ "Typefac", "TypeScript", "IoC", "DI" ],
+    "projectUrl": "https://github.com/ChristopherHaws/Typefac",
+    "licenseUrl": "",
 
-	"dependencies": {
-	},
+    "dependencies": {
+    },
 
-	"frameworks": {
-		"dnx451": { }
-	}
+    "frameworks": {
+        "dnx451": { }
+    }
 }
