@@ -5,14 +5,14 @@ var tsc = require("gulp-tsc");
 gulp.task("default", function () {
 
 	gulp
-		.src("../dist/*.*")
+		.src("../artifacts/bin/Typefac/*.*")
 		.pipe(gulp.dest("./wwwroot/libs/"));
 
 	gulp
 		.src(["./Tests/**/*.ts", "./libs/**/*.d.ts", "./wwwroot/libs/Typefac.d.ts"])
 		.pipe(tsc({
 			"module": "amd",
-			"noImplicitAny": false,
+			"noImplicitAny": true,
 			"noEmitOnError": true,
 			"removeComments": false,
 			"sourceMap": true,

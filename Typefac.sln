@@ -14,6 +14,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Typefac", "Typefac\Typefac.
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Typefac.Tests", "Typefac.Tests\Typefac.Tests.xproj", "{486C6A5B-8D16-405B-98EF-E8C250DF8EAA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D2206C8A-9E87-4FF8-8777-DB634816818B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{312230E5-FD8F-45FE-93C7-D4F3106E51F2} = {8B84D3EA-E96D-4C68-AB26-2950405006EB}
-		{486C6A5B-8D16-405B-98EF-E8C250DF8EAA} = {8B84D3EA-E96D-4C68-AB26-2950405006EB}
+		{486C6A5B-8D16-405B-98EF-E8C250DF8EAA} = {D2206C8A-9E87-4FF8-8777-DB634816818B}
 	EndGlobalSection
 EndGlobal

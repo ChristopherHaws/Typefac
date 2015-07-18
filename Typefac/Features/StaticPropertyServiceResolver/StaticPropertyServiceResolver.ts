@@ -7,9 +7,9 @@
 		public canResolve(componentRegistration: IComponentRegistration): boolean {
 			if (!componentRegistration.type.hasOwnProperty("$inject") || !componentRegistration.type.propertyIsEnumerable("$inject")) {
 				return false;
-			}
-
-            var requestedServices = <Array<any>>componentRegistration.type["$inject"];
+            }
+            
+            var requestedServices = <Array<any>>(<any>componentRegistration.type)["$inject"];
             
             //TODO: Might want to check to see if all of the parameters are registered...
             var validationTests = [
@@ -27,7 +27,7 @@
                 throw new Error(`StaticPropertyResolver is not able to get the services from '${componentRegistration.typeName}'.`);
             }
 
-            var requestedServices = <Array<string>>componentRegistration.type["$inject"];
+            var requestedServices = <Array<string>>(<any>componentRegistration.type)["$inject"];
 
             return requestedServices;
         }
@@ -43,7 +43,7 @@
         }
 
         private validateAllStrings(componentRegistration: IComponentRegistration, requestedServices: Array<any>): boolean {
-            return requestedServices.every((value) => {
+            return requestedServices.every((value: Object) => {
                 if (typeof value !== "string") {
                     return false;
                 }

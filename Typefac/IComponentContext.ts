@@ -16,6 +16,6 @@
 		 * @throws {ComponentNotRegisteredException}
 		 * @throws {DependencyResolutionException}
 		 */
-		resolveComponent(registration: Core.Registration.IComponentRegistration, parameters: any[]);
+        resolveComponent(registration: Core.Registration.IComponentRegistration, parameters: any[]): Object;
 	}
 }
